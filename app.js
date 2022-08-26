@@ -1,10 +1,18 @@
 const body = document.querySelector('body');
+
 let rwyHeading = document.querySelector('#rwy-heading');
 let windDirection = document.querySelector('#wind-direction');
 let windSpeed = document.querySelector('#wind-speed');
+
 const form = document.querySelector('#rwy-heading-form');
 const calcButton = document.querySelector('button');
 const answer = document.querySelector('.answer');
+
+const rwyHeadingBorder = document.querySelector('#rwy-heading');
+const windDirectionBorder = document.querySelector('#wind-direction');
+const windSpeedBorder = document.querySelector('#wind-speed');
+
+const regexNum = /^[0-9]*$/;
 
 const images = ['https://i.stack.imgur.com/vkIDc.jpg',
     'https://4.bp.blogspot.com/-SCgTiXVNcxw/VBfqVNSODYI/AAAAAAABM10/6y3WrER7ERY/s0/Delta%2BAirline%2Bon%2BJFK%2BAirport_Ultra%2BHD.jpg',
@@ -21,20 +29,28 @@ window.addEventListener('load', () => {
     randomImage(images);
 })
 
-calcButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    xwindComponent = getComponents(rwyHeading, windDirection, windSpeed);
-    answer.textContent = xwindComponent;
-})
 
 function getDifference(windDirection, rwyHeading) {
-    windDirection = windDirection.value.slice(1, 3);
-    rwyHeading = rwyHeading.value + 0;
-    // console.log(windDirection);
-    // console.log(rwyHeading);
+
+    windDirection = windDirection.value;
+    rwyHeading = rwyHeading.value;
+
+
+    if (windDirection === '' || !windDirection.match(regexNum)) {
+        windDirectionBorder.style.borderBottom = '3px solid #e76f51';
+        windDirectionBorder.classList.add('horizontal-shaking')
+    } else {
+        windDirection = windDirection + 0;
+    }
+
+    if (rwyHeading === '' || !rwyHeading.match(regexNum)) {
+        rwyHeadingBorder.style.borderBottom = '3px solid #e76f51';
+        rwyHeadingBorder.classList.add('horizontal-shaking')
+    } else {
+        rwyHeading = rwyHeading + 0;
+    }
 
     let angle = (windDirection - rwyHeading) % 360;
-    // console.log(angle);
 
     if (angle >= 180) {
         angle -= 360
@@ -45,9 +61,27 @@ function getDifference(windDirection, rwyHeading) {
 
 function getComponents(rwyHeading, windDirection, windSpeed) {
     windSpeed = windSpeed.value;
+
+    if (windSpeed === '' || !windSpeed.match(regexNum)) {
+        windSpeedBorder.style.borderBottom = '3px solid #e76f51';
+        windSpeedBorder.classList.add('horizontal-shaking')
+    }
+
     let windAngle = getDifference(windDirection, rwyHeading);
     let xwindComponentRaw = windSpeed * Math.sin(windAngle * (Math.PI / 180));
     const xwindComponent = Math.abs(Math.round(xwindComponentRaw));
 
-    return `${xwindComponent} KTS`;
+    return xwindComponent;
 }
+
+calcButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    xwindComponent = getComponents(rwyHeading, windDirection, windSpeed);
+
+    if (xwindComponent === 0) {
+        answer.textContent = '-- KTS';
+    } else {
+        answer.textContent = xwindComponent + ' KTS';
+    }
+
+})

@@ -95,9 +95,9 @@ input {
     /* border: 1px solid red; */
 }
 
-::placeholder {
+/* ::placeholder {
     font-family: 'Lato', sans-serif;
-}
+} */
 
 input:focus::placeholder {
     color: transparent;
@@ -138,4 +138,32 @@ button:hover {
     font-size: 40px;
     color: var(--teal);
     margin-bottom: 18px;
+}
+
+/* --ANIMATIONS-- */
+
+.horizontal-shaking {
+    animation: horizontal-shaking 0.3s cubic-bezier(.36, .07, .19, .97) both;
+}
+
+@keyframes horizontal-shaking {
+    0% {
+        transform: translateX(0)
+    }
+
+    25% {
+        transform: translateX(5px)
+    }
+
+    50% {
+        transform: translateX(-5px)
+    }
+
+    75% {
+        transform: translateX(5px)
+    }
+
+    100% {
+        transform: translateX(0)
+    }
 }
