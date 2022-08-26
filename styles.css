@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Lato&display=swap');
+/* font-family: 'Arvo', serif;
+font-family: 'Lato', sans-serif; */
+
+:root {
+    --background-color: #264653d8;
+    --teal: #2a9d8f;
+    --yellow: #e9c46a;
+    --orange: #f4a261;
+    --red: #e76f51;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 16px;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.main-container {
+    display: flex;
+    width: 400px;
+    min-width: 290px;
+    /* height: 400px; */
+    margin: 20px;
+}
+
+.inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--background-color);
+    border-radius: 20px;
+    box-shadow: 10px 10px 16px -1px rgba(0, 0, 0, 0.8);
+}
+
+header {
+    margin: 18px;
+    text-align: center;
+}
+
+h1 {
+    font-family: 'Arvo', serif;
+    font-size: 18px;
+    color: var(--yellow);
+    line-height: 28px;
+    border-bottom: var(--yellow);
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.label {
+    font-size: 18px;
+    color: #fff;
+    /* border: 1px solid greenyellow; */
+    /* border-bottom: 1px solid #fff; */
+    margin-bottom: 20px;
+}
+
+input {
+    text-align: center;
+    width: 80px;
+    outline: none;
+    border: none;
+    border-bottom: 3px solid var(--yellow);
+    background-color: transparent;
+    caret-color: var(--yellow);
+    font-size: 40px;
+    color: var(--yellow);
+    margin-bottom: 20px;
+    /* border: 1px solid red; */
+}
+
+::placeholder {
+    font-family: 'Lato', sans-serif;
+}
+
+input:focus::placeholder {
+    color: transparent;
+}
+
+button {
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--yellow);
+    color: #264653;
+    margin-bottom: 20px;
+}
+
+button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+    color: #14272e;
+}
+
+.xwind {
+    text-align: center;
+    width: fit-content;
+    /* border: 1px solid greenyellow; */
+}
+
+.slash {
+    display: inline;
+    font-size: 50px;
+    color: #fff;
+    margin-left: 8px;
+    margin-right: 2px;
+}
+
+.answer {
+    font-size: 40px;
+    color: var(--teal);
+    margin-bottom: 18px;
+}
