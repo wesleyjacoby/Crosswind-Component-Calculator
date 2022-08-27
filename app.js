@@ -36,12 +36,12 @@ function checkRwyHeading(rwyHeading) {
         rwyHeadingBorder.style.borderBottom = '3px solid #e76f51';
         rwyHeadingBorder.classList.add('horizontal-shaking');
         rwyHeading = 'error';
-        console.log(`Incorrect Runway Heading is ${rwyHeading}`);
+        // console.log(`Incorrect Runway Heading is ${rwyHeading}`);
         return rwyHeading;
     } else {
         rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
         rwyHeading = rwyHeading + '0';
-        console.log(`Runway Heading is ${rwyHeading}`);
+        // console.log(`Runway Heading is ${rwyHeading}`);
         return rwyHeading;
     }
 }
@@ -50,12 +50,12 @@ function checkWindDirection(windDirection) {
     if (windDirection === '' || !windDirection.match(regexNum) || windDirection > 360 || windDirection < 0) {
         windDirectionBorder.style.borderBottom = '3px solid #e76f51';
         windDirectionBorder.classList.add('horizontal-shaking');
-        windDirection = 0;
-        console.log(`Incorrect Wind Direction is ${windDirection}`);
+        windDirection = 'error';
+        // console.log(`Incorrect Wind Direction is ${windDirection}`);
         return windDirection;
     } else {
         windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
-        console.log(`Correct Wind Direction is ${windDirection}`);
+        // console.log(`Correct Wind Direction is ${windDirection}`);
         return windDirection;
     }
 }
@@ -64,18 +64,17 @@ function checkWindSpeed(windSpeed) {
     if (windSpeed === '' || !windSpeed.match(regexNum) || windSpeed < 0) {
         windSpeedBorder.style.borderBottom = '3px solid #e76f51';
         windSpeedBorder.classList.add('horizontal-shaking');
-        windSpeed = 0;
-        console.log(`Incorrect Wind Speed is: ${windSpeed}`);
+        windSpeed = 'error';
+        // console.log(`Incorrect Wind Speed is: ${windSpeed}`);
         return windSpeed;
     } else {
         windSpeedBorder.style.borderBottom = '3px solid #e9c46a';
-        console.log(`Wind Speed is: ${windSpeed}`);
+        // console.log(`Wind Speed is: ${windSpeed}`);
         return windSpeed;
     }
 }
 
 function getAngle(windDirection, rwyHeading) {
-    console.log(`Wind Direction is: ${windDirection} and Runway Heading is: ${rwyHeading}`);
     let angle = (windDirection - rwyHeading) % 360;
 
     if (angle >= 180) {
@@ -101,7 +100,7 @@ function getCrosswind(rwyHeading, windDirection, windSpeed) {
 
     const windAngle = getDifference(windDirection, rwyHeading);
     let xwindComponentRaw = windSpeed * Math.sin(windAngle * (Math.PI / 180));
-    console.log(`Xwind Raw is: ${xwindComponentRaw}`)
+    // console.log(`Xwind Raw is: ${xwindComponentRaw}`)
     const xwindComponent = Math.abs(Math.round(xwindComponentRaw));
 
     return xwindComponent;
