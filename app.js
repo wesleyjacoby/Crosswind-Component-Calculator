@@ -80,7 +80,7 @@ function getAngle(windDirection, rwyHeading) {
     if (angle >= 180) {
         angle = angle - 360;
     }
-    console.log(`Angle is ${angle}`)
+    // console.log(`Angle is ${angle}`)
     return angle;
 }
 
