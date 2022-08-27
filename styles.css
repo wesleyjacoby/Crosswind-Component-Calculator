@@ -111,13 +111,22 @@ button {
     border-radius: 10px;
     background-color: var(--yellow);
     color: #264653;
-    margin-bottom: 20px;
+    margin-bottom: 8px;
 }
 
 button:hover {
     cursor: pointer;
     opacity: 0.8;
     color: #14272e;
+}
+
+.reset {
+    color: var(--red);
+    margin-bottom: 20px;
+}
+
+.reset:hover {
+    cursor: pointer;
 }
 
 .xwind {

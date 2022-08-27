@@ -7,6 +7,7 @@ let windSpeed = document.querySelector('#wind-speed');
 const form = document.querySelector('#rwy-heading-form');
 const calcButton = document.querySelector('button');
 const answer = document.querySelector('.answer');
+const reset = document.querySelector('.reset');
 
 const rwyHeadingBorder = document.querySelector('#rwy-heading');
 const windDirectionBorder = document.querySelector('#wind-direction');
@@ -35,24 +36,23 @@ function getDifference(windDirection, rwyHeading) {
     windDirection = windDirection.value;
     rwyHeading = rwyHeading.value;
 
+    if (rwyHeading === '' || !rwyHeading.match(regexNum) || rwyHeading > 36 || rwyHeading < 0) {
+        rwyHeadingBorder.style.borderBottom = '3px solid #e76f51';
+        rwyHeadingBorder.classList.add('horizontal-shaking')
+    } else {
+        rwyHeading = rwyHeading + 0;
+        rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
+    }
+
 
     if (windDirection === '' || !windDirection.match(regexNum) || windDirection > 360 || windDirection < 0) {
         windDirectionBorder.style.borderBottom = '3px solid #e76f51';
         windDirectionBorder.classList.add('horizontal-shaking')
-        return 0;
     } else {
         windDirection = windDirection.slice(1, 3);
         windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
     }
 
-    if (rwyHeading === '' || !rwyHeading.match(regexNum) || rwyHeading > 36 || rwyHeading <= 0) {
-        rwyHeadingBorder.style.borderBottom = '3px solid #e76f51';
-        rwyHeadingBorder.classList.add('horizontal-shaking')
-        return 0;
-    } else {
-        rwyHeading = rwyHeading + 0;
-        rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
-    }
 
     let angle = (windDirection - rwyHeading) % 360;
 
@@ -84,10 +84,19 @@ calcButton.addEventListener('click', (e) => {
     e.preventDefault();
     xwindComponent = getComponents(rwyHeading, windDirection, windSpeed);
 
-    if (xwindComponent === 0) {
+    if (xwindComponent === 0 || rwyHeading === '') {
         answer.textContent = '-- KTS';
     } else {
         answer.textContent = xwindComponent + ' KTS';
     }
-
 })
+
+// reset.addEventListener('click', () => {
+//     rwyHeading.textContent = '';
+//     windDirection.textContent = '';
+//     windSpeed.textContent = '';
+
+//     rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
+//     windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
+//     windSpeedBorder.style.borderBottom = '3px solid #e9c46a';
+// })
