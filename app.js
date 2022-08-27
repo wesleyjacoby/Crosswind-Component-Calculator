@@ -30,51 +30,113 @@ window.addEventListener('load', () => {
     randomImage(images);
 })
 
+function checkRwyHeading(rwyHeading) {
+
+    if (rwyHeading === '' || !rwyHeading.match(regexNum) || rwyHeading > 36 || rwyHeading < 0) {
+        rwyHeadingBorder.style.borderBottom = '3px solid #e76f51';
+        rwyHeadingBorder.classList.add('horizontal-shaking');
+        rwyHeading = 'error';
+        console.log(`Incorrect Runway Heading is ${rwyHeading}`);
+        return rwyHeading;
+    } else {
+        rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
+        rwyHeading = rwyHeading + '0';
+        console.log(`Runway Heading is ${rwyHeading}`);
+        return rwyHeading;
+    }
+}
+
+function checkWindDirection(windDirection) {
+    if (windDirection === '' || !windDirection.match(regexNum) || windDirection > 360 || windDirection < 0) {
+        windDirectionBorder.style.borderBottom = '3px solid #e76f51';
+        windDirectionBorder.classList.add('horizontal-shaking');
+        windDirection = 0;
+        console.log(`Incorrect Wind Direction is ${windDirection}`);
+        return windDirection;
+    } else {
+        windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
+        console.log(`Correct Wind Direction is ${windDirection}`);
+        return windDirection;
+    }
+}
+
+function checkWindSpeed(windSpeed) {
+    if (windSpeed === '' || !windSpeed.match(regexNum) || windSpeed < 0) {
+        windSpeedBorder.style.borderBottom = '3px solid #e76f51';
+        windSpeedBorder.classList.add('horizontal-shaking');
+        windSpeed = 0;
+        console.log(`Incorrect Wind Speed is: ${windSpeed}`);
+        return windSpeed;
+    } else {
+        windSpeedBorder.style.borderBottom = '3px solid #e9c46a';
+        console.log(`Wind Speed is: ${windSpeed}`);
+        return windSpeed;
+    }
+}
+
+function getAngle(windDirection, rwyHeading) {
+    console.log(`Wind Direction is: ${windDirection} and Runway Heading is: ${rwyHeading}`);
+    let angle = (windDirection - rwyHeading) % 360;
+
+    if (angle >= 180) {
+        angle = angle - 360;
+    }
+    console.log(`Angle is ${angle}`)
+    return angle;
+}
+
 
 function getDifference(windDirection, rwyHeading) {
 
     windDirection = windDirection.value;
     rwyHeading = rwyHeading.value;
 
-    if (rwyHeading === '' || !rwyHeading.match(regexNum) || rwyHeading > 36 || rwyHeading < 0) {
-        rwyHeadingBorder.style.borderBottom = '3px solid #e76f51';
-        rwyHeadingBorder.classList.add('horizontal-shaking')
-    } else {
-        rwyHeading = rwyHeading + 0;
-        rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
-    }
+    // checkRwyHeading(rwyHeading);
+    // checkWindDirection(windDirection);
+    return getAngle(checkWindDirection(windDirection), checkRwyHeading(rwyHeading));
+
+    // if (rwyHeading === '' || !rwyHeading.match(regexNum) || rwyHeading > 36 || rwyHeading < 0) {
+    //     rwyHeadingBorder.style.borderBottom = '3px solid #e76f51';
+    //     rwyHeadingBorder.classList.add('horizontal-shaking')
+    // } else {
+    //     rwyHeading = rwyHeading + 0;
+    //     rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
+    // }
 
 
-    if (windDirection === '' || !windDirection.match(regexNum) || windDirection > 360 || windDirection < 0) {
-        windDirectionBorder.style.borderBottom = '3px solid #e76f51';
-        windDirectionBorder.classList.add('horizontal-shaking')
-    } else {
-        windDirection = windDirection.slice(1, 3);
-        windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
-    }
+    // if (windDirection === '' || !windDirection.match(regexNum) || windDirection > 360 || windDirection < 0) {
+    //     windDirectionBorder.style.borderBottom = '3px solid #e76f51';
+    //     windDirectionBorder.classList.add('horizontal-shaking')
+    // } else {
+    //     windDirection = windDirection.slice(1, 3);
+    //     windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
+    // }
 
 
-    let angle = (windDirection - rwyHeading) % 360;
+    // let angle = (windDirection - rwyHeading) % 360;
 
-    if (angle >= 180) {
-        angle -= 360
-    }
+    // if (angle >= 180) {
+    //     angle -= 360
+    // }
 
-    return angle;
+    // return angle;
 }
 
-function getComponents(rwyHeading, windDirection, windSpeed) {
+function getCrosswind(rwyHeading, windDirection, windSpeed) {
     windSpeed = windSpeed.value;
 
-    if (windSpeed === '' || !windSpeed.match(regexNum) || windSpeed < 0) {
-        windSpeedBorder.style.borderBottom = '3px solid #e76f51';
-        windSpeedBorder.classList.add('horizontal-shaking')
-    } else {
-        windSpeedBorder.style.borderBottom = '3px solid #e9c46a';
-    }
+    checkWindSpeed(windSpeed);
 
-    let windAngle = getDifference(windDirection, rwyHeading);
+    // if (windSpeed === '' || !windSpeed.match(regexNum) || windSpeed < 0) {
+    //     windSpeedBorder.style.borderBottom = '3px solid #e76f51';
+    //     windSpeedBorder.classList.add('horizontal-shaking')
+    // } else {
+    //     windSpeedBorder.style.borderBottom = '3px solid #e9c46a';
+    // }
+
+    const windAngle = getDifference(windDirection, rwyHeading);
     let xwindComponentRaw = windSpeed * Math.sin(windAngle * (Math.PI / 180));
+    console.log(`Xwind Raw is: ${xwindComponentRaw}`)
     const xwindComponent = Math.abs(Math.round(xwindComponentRaw));
 
     return xwindComponent;
@@ -82,21 +144,21 @@ function getComponents(rwyHeading, windDirection, windSpeed) {
 
 calcButton.addEventListener('click', (e) => {
     e.preventDefault();
-    xwindComponent = getComponents(rwyHeading, windDirection, windSpeed);
+    xwindComponent = getCrosswind(rwyHeading, windDirection, windSpeed);
 
-    if (xwindComponent === 0 || rwyHeading === '') {
+    if (isNaN(xwindComponent)) {
         answer.textContent = '-- KTS';
     } else {
         answer.textContent = xwindComponent + ' KTS';
     }
 })
 
-// reset.addEventListener('click', () => {
-//     rwyHeading.textContent = '';
-//     windDirection.textContent = '';
-//     windSpeed.textContent = '';
+reset.addEventListener('click', () => {
+    rwyHeading.textContent = '';
+    windDirection.textContent = '';
+    windSpeed.textContent = '';
 
-//     rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
-//     windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
-//     windSpeedBorder.style.borderBottom = '3px solid #e9c46a';
-// })
+    rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
+    windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
+    windSpeedBorder.style.borderBottom = '3px solid #e9c46a';
+})
