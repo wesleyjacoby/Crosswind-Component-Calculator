@@ -36,18 +36,22 @@ function getDifference(windDirection, rwyHeading) {
     rwyHeading = rwyHeading.value;
 
 
-    if (windDirection === '' || !windDirection.match(regexNum)) {
+    if (windDirection === '' || !windDirection.match(regexNum) || windDirection > 360 || windDirection < 0) {
         windDirectionBorder.style.borderBottom = '3px solid #e76f51';
         windDirectionBorder.classList.add('horizontal-shaking')
+        return 0;
     } else {
-        windDirection = windDirection + 0;
+        windDirection = windDirection.slice(1, 3);
+        windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
     }
 
-    if (rwyHeading === '' || !rwyHeading.match(regexNum)) {
+    if (rwyHeading === '' || !rwyHeading.match(regexNum) || rwyHeading > 36 || rwyHeading <= 0) {
         rwyHeadingBorder.style.borderBottom = '3px solid #e76f51';
         rwyHeadingBorder.classList.add('horizontal-shaking')
+        return 0;
     } else {
         rwyHeading = rwyHeading + 0;
+        rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
     }
 
     let angle = (windDirection - rwyHeading) % 360;
@@ -62,9 +66,11 @@ function getDifference(windDirection, rwyHeading) {
 function getComponents(rwyHeading, windDirection, windSpeed) {
     windSpeed = windSpeed.value;
 
-    if (windSpeed === '' || !windSpeed.match(regexNum)) {
+    if (windSpeed === '' || !windSpeed.match(regexNum) || windSpeed < 0) {
         windSpeedBorder.style.borderBottom = '3px solid #e76f51';
         windSpeedBorder.classList.add('horizontal-shaking')
+    } else {
+        windSpeedBorder.style.borderBottom = '3px solid #e9c46a';
     }
 
     let windAngle = getDifference(windDirection, rwyHeading);
