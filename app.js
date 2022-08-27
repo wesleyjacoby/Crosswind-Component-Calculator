@@ -119,6 +119,7 @@ calcButton.addEventListener('click', (e) => {
 
 reset.addEventListener('click', () => {
     form.reset();
+    answer.textContent = '-- KTS';
 
     rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
     windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
