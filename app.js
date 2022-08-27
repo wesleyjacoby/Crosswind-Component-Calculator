@@ -91,48 +91,13 @@ function getDifference(windDirection, rwyHeading) {
     windDirection = windDirection.value;
     rwyHeading = rwyHeading.value;
 
-    // checkRwyHeading(rwyHeading);
-    // checkWindDirection(windDirection);
     return getAngle(checkWindDirection(windDirection), checkRwyHeading(rwyHeading));
-
-    // if (rwyHeading === '' || !rwyHeading.match(regexNum) || rwyHeading > 36 || rwyHeading < 0) {
-    //     rwyHeadingBorder.style.borderBottom = '3px solid #e76f51';
-    //     rwyHeadingBorder.classList.add('horizontal-shaking')
-    // } else {
-    //     rwyHeading = rwyHeading + 0;
-    //     rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
-    // }
-
-
-    // if (windDirection === '' || !windDirection.match(regexNum) || windDirection > 360 || windDirection < 0) {
-    //     windDirectionBorder.style.borderBottom = '3px solid #e76f51';
-    //     windDirectionBorder.classList.add('horizontal-shaking')
-    // } else {
-    //     windDirection = windDirection.slice(1, 3);
-    //     windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
-    // }
-
-
-    // let angle = (windDirection - rwyHeading) % 360;
-
-    // if (angle >= 180) {
-    //     angle -= 360
-    // }
-
-    // return angle;
 }
 
 function getCrosswind(rwyHeading, windDirection, windSpeed) {
     windSpeed = windSpeed.value;
 
     checkWindSpeed(windSpeed);
-
-    // if (windSpeed === '' || !windSpeed.match(regexNum) || windSpeed < 0) {
-    //     windSpeedBorder.style.borderBottom = '3px solid #e76f51';
-    //     windSpeedBorder.classList.add('horizontal-shaking')
-    // } else {
-    //     windSpeedBorder.style.borderBottom = '3px solid #e9c46a';
-    // }
 
     const windAngle = getDifference(windDirection, rwyHeading);
     let xwindComponentRaw = windSpeed * Math.sin(windAngle * (Math.PI / 180));
@@ -154,9 +119,7 @@ calcButton.addEventListener('click', (e) => {
 })
 
 reset.addEventListener('click', () => {
-    rwyHeading.textContent = '';
-    windDirection.textContent = '';
-    windSpeed.textContent = '';
+    form.reset();
 
     rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
     windDirectionBorder.style.borderBottom = '3px solid #e9c46a';
