@@ -47,7 +47,7 @@ function checkRwyHeading(rwyHeading) {
 }
 
 function checkWindDirection(windDirection) {
-    if (windDirection === '' || !windDirection.match(regexNum) || windDirection > 360 || windDirection < 0) {
+    if (windDirection === '' || !windDirection.match(regexNum) || windDirection > 360 || windDirection < 0 || windDirection.length < 3) {
         windDirectionBorder.style.borderBottom = '3px solid #e76f51';
         windDirectionBorder.classList.add('horizontal-shaking');
         windDirection = 'error';
