@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Arvo&family=Lato&display=swap');
-/* font-family: 'Arvo', serif;
-font-family: 'Lato', sans-serif; */
 
 :root {
     --background-color: #264653d8;
@@ -34,9 +32,8 @@ body {
 
 .main-container {
     display: flex;
-    width: 400px;
+    max-width: fit-content;
     min-width: 290px;
-    /* height: 400px; */
     margin: 20px;
 }
 
@@ -61,7 +58,6 @@ h1 {
     font-size: 18px;
     color: var(--yellow);
     line-height: 36px;
-    border-bottom: var(--yellow);
 }
 
 form {
@@ -70,14 +66,11 @@ form {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    /* border: 1px solid red; */
 }
 
 .label {
     font-size: 18px;
     color: #fff;
-    /* border: 1px solid greenyellow; */
-    /* border-bottom: 1px solid #fff; */
     margin-bottom: 20px;
 }
 
@@ -92,7 +85,6 @@ input {
     font-size: 40px;
     color: var(--yellow);
     margin-bottom: 20px;
-    /* border: 1px solid red; */
 }
 
 ::placeholder {
@@ -135,13 +127,11 @@ button:hover {
     justify-content: space-around;
     align-items: center;
     width: 100%;
-    /* border: 1px solid red; */
 }
 
 .wind {
     text-align: center;
     width: fit-content;
-    /* border: 1px solid greenyellow; */
 }
 
 .slash {
@@ -189,5 +179,48 @@ button:hover {
 
     100% {
         transform: translateX(0)
+    }
+}
+
+/* --MEDIA QUERIES-- */
+
+@media screen and (min-width: 500px) {
+
+    .inner-container {
+        padding: 14px;
+    }
+
+    h1 {
+        font-size: 22px;
+        line-height: 40px;
+    }
+
+    .label {
+        font-size: 22px;
+    }
+
+    input {
+        font-size: 46px;
+        width: 90px;
+        margin-bottom: 24px;
+    }
+
+    button {
+        font-size: 22px;
+        padding: 12px 22px;
+        margin-bottom: 12px;
+    }
+
+    .reset {
+        font-size: 18px;
+        margin-bottom: 22px;
+    }
+
+    .x-answer {
+        font-size: 46px;
+    }
+
+    .h-answer {
+        font-size: 46px;
     }
 }
