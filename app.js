@@ -6,7 +6,9 @@ let windSpeed = document.querySelector('#wind-speed');
 
 const form = document.querySelector('#rwy-heading-form');
 const calcButton = document.querySelector('button');
-const answer = document.querySelector('.answer');
+const xanswer = document.querySelector('.x-answer');
+const hanswer = document.querySelector('.h-answer');
+const headwindLabel = document.querySelector('.headwind');
 const reset = document.querySelector('.reset');
 
 const rwyHeadingBorder = document.querySelector('#rwy-heading');
@@ -93,33 +95,49 @@ function getDifference(windDirection, rwyHeading) {
     return getAngle(checkWindDirection(windDirection), checkRwyHeading(rwyHeading));
 }
 
-function getCrosswind(rwyHeading, windDirection, windSpeed) {
+function getComponents(rwyHeading, windDirection, windSpeed) {
     windSpeed = windSpeed.value;
 
     checkWindSpeed(windSpeed);
 
     const windAngle = getDifference(windDirection, rwyHeading);
+
     let xwindComponentRaw = windSpeed * Math.sin(windAngle * (Math.PI / 180));
-    // console.log(`Xwind Raw is: ${xwindComponentRaw}`)
     const xwindComponent = Math.abs(Math.round(xwindComponentRaw));
 
-    return xwindComponent;
+    const hwindComponent = windSpeed * Math.cos(windAngle * (Math.PI / 180));
+
+    return [xwindComponent, hwindComponent];
 }
 
 calcButton.addEventListener('click', (e) => {
     e.preventDefault();
-    xwindComponent = getCrosswind(rwyHeading, windDirection, windSpeed);
+    [xwindComponent, hwindComponent] = getComponents(rwyHeading, windDirection, windSpeed);
 
     if (isNaN(xwindComponent)) {
-        answer.textContent = '-- KTS';
+        xanswer.textContent = '-- KTS';
     } else {
-        answer.textContent = xwindComponent + ' KTS';
+        xanswer.textContent = xwindComponent + ' KTS';
+    }
+
+    if (isNaN(hwindComponent)) {
+        hanswer.textContent = '-- KTS';
+    } else if (hwindComponent < 0) {
+        hwindComponent = Math.abs(Math.round(hwindComponent));
+        hanswer.textContent = hwindComponent + ' KTS';
+        hanswer.style.color = '#e76f51';
+        headwindLabel.textContent = 'Tailwind';
+    } else {
+        hanswer.textContent = hwindComponent + ' KTS';
     }
 })
 
 reset.addEventListener('click', () => {
     form.reset();
-    answer.textContent = '-- KTS';
+    xanswer.textContent = '-- KTS';
+    hanswer.textContent = '-- KTS';
+    headwindLabel.textContent = 'Headwind';
+    hanswer.style.color = '#2a9d8f';
 
     rwyHeadingBorder.style.borderBottom = '3px solid #e9c46a';
     windDirectionBorder.style.borderBottom = '3px solid #e9c46a';

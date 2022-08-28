@@ -60,7 +60,7 @@ h1 {
     font-family: 'Arvo', serif;
     font-size: 18px;
     color: var(--yellow);
-    line-height: 28px;
+    line-height: 36px;
     border-bottom: var(--yellow);
 }
 
@@ -95,9 +95,9 @@ input {
     /* border: 1px solid red; */
 }
 
-/* ::placeholder {
+::placeholder {
     font-family: 'Lato', sans-serif;
-} */
+}
 
 input:focus::placeholder {
     color: transparent;
@@ -129,7 +129,16 @@ button:hover {
     cursor: pointer;
 }
 
-.xwind {
+.wind-component {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    /* border: 1px solid red; */
+}
+
+.wind {
     text-align: center;
     width: fit-content;
     /* border: 1px solid greenyellow; */
@@ -143,7 +152,13 @@ button:hover {
     margin-right: 2px;
 }
 
-.answer {
+.x-answer {
+    font-size: 40px;
+    color: var(--teal);
+    margin-bottom: 18px;
+}
+
+.h-answer {
     font-size: 40px;
     color: var(--teal);
     margin-bottom: 18px;
