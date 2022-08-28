@@ -128,6 +128,7 @@ calcButton.addEventListener('click', (e) => {
         hanswer.style.color = '#e76f51';
         headwindLabel.textContent = 'Tailwind';
     } else {
+        hwindComponent = Math.abs(Math.round(hwindComponent));
         hanswer.textContent = hwindComponent + ' KTS';
     }
 })
